@@ -1,0 +1,27 @@
+<project name="X12" default="dist" basedir=".">
+	<description>
+		X12 build file
+    </description>
+	<!-- set global properties for this build -->
+	<property name="src.dir" location="src/main/java" />
+	<property name="build.dir" location="target/classes" />
+	<property name="dist.dir" location="target" />
+
+	<target name="init">
+		<mkdir dir="${build.dir}" />
+	</target>
+
+	<target name="compile" depends="init" description="compile the source ">
+		<javac srcdir="${src.dir}" destdir="${build.dir}" />
+	</target>
+
+	<target name="dist" depends="compile" description="generate the distribution">
+		<mkdir dir="${dist.dir}/lib" />
+		<jar jarfile="${dist.dir}/lib/X12-V0.1.jar" basedir="${build.dir}" excludes="**/*Example.*" />
+	</target>
+
+	<target name="clean" description="clean up">
+		<delete dir="${build.dir}" />
+		<delete dir="${dist.dir}" />
+	</target>
+</project>
