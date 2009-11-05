@@ -20,13 +20,12 @@
 
 	<target name="dist" depends="compile" description="generate the distribution">
 		<mkdir dir="${dist.dir}" />
-		<jar jarfile="${dist.dir}/X12-V0.1.jar" 
+		<jar jarfile="${dist.dir}/X12-V0.5.jar" 
 			basedir="${build.dir}" 
 			excludes="**/*Example.*" />
-		<jar jarfile="${dist.dir}/X12-V0.1-src.jar" 
+		<jar jarfile="${dist.dir}/X12-V0.5-src.jar" 
 			basedir="${current.dir}"
-			includes="src/**, ant.xml, LICENSE-2.0.txt"
-			excludes="**/*Example.*" />
+			includes="src/**, ant.xml, LICENSE-2.0.txt" />
 	</target>
 
 	<target name="clean" description="clean up">
