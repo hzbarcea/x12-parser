@@ -3,21 +3,30 @@
 		X12 build file
     </description>
 	<!-- set global properties for this build -->
-	<property name="src.dir" location="src/main/java" />
+	<property name="current.dir" location="." />
+	<property name="src.dir" location="src" />
+	<property name="target.dir" location="target" />
+	<property name="lib.dir" location="src/main/java" />
 	<property name="build.dir" location="target/classes" />
-	<property name="dist.dir" location="target" />
+	<property name="dist.dir" location="target/lib" />
 
 	<target name="init">
-		<mkdir dir="${build.dir}" />
 	</target>
 
-	<target name="compile" depends="init" description="compile the source ">
-		<javac srcdir="${src.dir}" destdir="${build.dir}" />
+	<target name="compile" depends="init" description="compile the source">
+		<mkdir dir="${build.dir}" />
+		<javac srcdir="${lib.dir}" destdir="${build.dir}" />
 	</target>
 
 	<target name="dist" depends="compile" description="generate the distribution">
-		<mkdir dir="${dist.dir}/lib" />
-		<jar jarfile="${dist.dir}/lib/X12-V0.1.jar" basedir="${build.dir}" excludes="**/*Example.*" />
+		<mkdir dir="${dist.dir}" />
+		<jar jarfile="${dist.dir}/X12-V0.1.jar" 
+			basedir="${build.dir}" 
+			excludes="**/*Example.*" />
+		<jar jarfile="${dist.dir}/X12-V0.1-src.jar" 
+			basedir="${current.dir}"
+			includes="src/**, ant.xml, LICENSE-2.0.txt"
+			excludes="**/*Example.*" />
 	</target>
 
 	<target name="clean" description="clean up">
