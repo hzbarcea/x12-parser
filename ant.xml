@@ -21,8 +21,8 @@
 	<target name="dist" depends="compile" description="generate the distribution">
 		<mkdir dir="${dist.dir}" />
 		<jar jarfile="${dist.dir}/X12-V0.5.jar" 
-			basedir="${build.dir}" 
-			excludes="**/*Example.*" />
+			basedir="${current.dir}" 
+			includes="target/classes/**, LICENSE-2.0.txt" />
 		<jar jarfile="${dist.dir}/X12-V0.5-src.jar" 
 			basedir="${current.dir}"
 			includes="src/**, ant.xml, LICENSE-2.0.txt" />
