@@ -37,7 +37,7 @@ public class X12 implements Iterable<Segment> {
 	 * The constructor takes a context object. 
 	 * @param c a Context object
 	 */
-	X12(Context c) {
+	public X12(Context c) {
 		this.context = c;
 		this.a = new ArrayList<Segment>();
 	}
