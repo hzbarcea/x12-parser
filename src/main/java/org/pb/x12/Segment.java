@@ -1,5 +1,5 @@
 /*
-   Copyright [2009] [Prasad Balan]
+   Copyright [2011] [Prasad Balan]
 
    Licensed under the Apache License, Version 2.0 (the "License");
    you may not use this file except in compliance with the License.
@@ -13,11 +13,12 @@
    See the License for the specific language governing permissions and
    limitations under the License.
 
-*/
+ */
 package org.pb.x12;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 
 /**
  * This class represents an X12 segment.
@@ -26,8 +27,8 @@ import java.util.Iterator;
  */
 public class Segment implements Iterable<String> {
 	private static final long serialVersionUID = 1L;
-	private ArrayList<String> a;
 	private Context context;
+	private List<String> elements = new ArrayList<String>();
 
 	/**
 	 * The constructor takes a <code>Context</code> object as input. The context
@@ -38,75 +39,153 @@ public class Segment implements Iterable<String> {
 	 */
 	public Segment(Context c) {
 		this.context = c;
-		this.a = new ArrayList<String>();
-	}
-
-	/**
-	 * Adds <code>String</code> elements to the segment. The elements are added
-	 * at the end of the elements in the current segment.
-	 * 
-	 * @param elements
-	 */
-	public void addElements(String... elements) {
-		for (String s : elements) {
-			a.add(s);
-		}
 	}
 
 	/**
 	 * Adds <code>String</code> element to the segment. The element is added at
 	 * the end of the elements in the current segment.
 	 * 
-	 * @param e the element to be added
+	 * @param e
+	 *            the element to be added
 	 * @return boolean
 	 */
 	public boolean addElement(String e) {
-		return a.add(e);
+		return elements.add(e);
 	}
 
 	/**
-	 * Adds <code>String</code> element to the segment at specified position.
+	 * Adds <code>String</code> elements to the segment. The elements are added
+	 * at the end of the elements in the current segment.
 	 * 
-	 * @param index position at which element is to be added
-	 * @param e element to be added
+	 * @param es
+	 * @return boolean
 	 */
-	public void addElement(int index, String e) {
-		a.add(index, e);
+	public boolean addElements(String... es) {
+		for (String s : es) {
+			if (!this.elements.add(s))
+				return false;
+		}
+		return true;
 	}
 
 	/**
 	 * Adds strings as a composite element to the end of the segment.
 	 * 
-	 * @param compele sub-elements of a composite element
+	 * @param ces
+	 *            sub-elements of a composite element
+	 * @return boolean
 	 */
-	public void addCompositeElement(String... compele) {
+	public boolean addCompositeElement(String... ces) {
 		StringBuffer dump = new StringBuffer();
-		for (String s : compele) {
+		for (String s : ces) {
 			dump.append(s);
-			dump.append(context.getCompositeElementSeperator());
+			dump.append(context.getCompositeElementSeparator());
 		}
-		a.add(dump.substring(0, dump.length() - 1));
+		return this.elements.add(dump.substring(0, dump.length() - 1));
 	}
 
 	/**
-	 * Replaces element at the specified position with the specified <code>String</code>
-	 * @param index position of the element to be replaced
-	 * @param s new element with which to replace
-	 * @return the element at the specified position.
+	 * Inserts <code>String</code> element to the segment at the specified
+	 * position
+	 * 
+	 * @param e
+	 *            the element to be added
+	 * @return boolean
 	 */
-	public String setElement(int index, String s) {
-		a.set(index, s);
-		return s;
+	public boolean addElement(int index, String e) {
+		return this.elements.add(e);
+	}
 
+	/**
+	 * Inserts strings as a composite element to segment at specified position
+	 * 
+	 * @param ces
+	 *            sub-elements of a composite element
+	 */
+	public void addCompositeElement(int index, String... ces) {
+		StringBuffer dump = new StringBuffer();
+		for (String s : ces) {
+			dump.append(s);
+			dump.append(context.getCompositeElementSeparator());
+		}
+		this.elements.add(index, dump.substring(0, dump.length() - 1));
+	}
+
+	/**
+	 * Returns the context object
+	 * 
+	 * @return Context object
+	 */
+	public Context getContext() {
+		return this.context;
 	}
 
 	/**
 	 * Returns the <code>String<code> element at the specified position.
-	 * @param index position
+	 * 
+	 * @param index
+	 *            position
 	 * @return the element at the specified position.
 	 */
 	public String getElement(int index) {
-		return a.get(index);
+		return elements.get(index);
+	}
+
+	/**
+	 * Returns and <code>Iterator</code> to the elements in the segment.
+	 * 
+	 * @return Iterator<String>
+	 */
+	@Override
+	public Iterator<String> iterator() {
+		return elements.iterator();
+	}
+	
+	/**
+	 * Sets the context of the segment
+	 * 
+	 * @param context
+	 *            context object
+	 */
+	public void setContext(Context context) {
+		this.context = context;
+	}
+
+	/**
+	 * Replaces element at the specified position with the specified
+	 * <code>String</code>
+	 * 
+	 * @param index
+	 *            position of the element to be replaced
+	 * @param s
+	 *            new element with which to replace
+	 */
+	public void setElement(int index, String s) {
+		elements.set(index, s);
+	}
+
+	/**
+	 * Replaces composite element at the specified position in segment.
+	 * 
+	 * @param ces
+	 *            sub-elements of a composite element
+	 */
+	public void setCompositeElement(int index, String... ces) {
+		StringBuffer dump = new StringBuffer();
+		for (String s : ces) {
+			dump.append(s);
+			dump.append(context.getCompositeElementSeparator());
+		}
+		elements.set(index, dump.substring(0, dump.length() - 1));
+	}
+
+	/**
+	 * Returns number of elements in the segment.
+	 * 
+	 * @return size
+	 */
+	public int size() {
+		return elements.size();
 	}
 
 	/**
@@ -114,52 +193,30 @@ public class Segment implements Iterable<String> {
 	 */
 	public String toString() {
 		StringBuffer dump = new StringBuffer();
-		for (String s : this.a) {
+		for (String s : this.elements) {
 			dump.append(s);
-			dump.append(context.getElementSeperator());
+			dump.append(context.getElementSeparator());
 		}
 		return dump.substring(0, dump.length() - 1);
 	}
 
 	/**
 	 * Returns the XML representation of the segment.
+	 * 
 	 * @return <code>String</code>
 	 */
 	public String toXML() {
 		StringBuffer dump = new StringBuffer();
-		dump.append("<" + this.a.get(0) + ">");
-		for (int i = 1; i < this.a.size(); i++) {
-			dump.append("<" + this.a.get(0) + String.format("%1$02d", i)
+		dump.append("<" + this.elements.get(0) + ">");
+		for (int i = 1; i < this.elements.size(); i++) {
+			dump.append("<" + this.elements.get(0) + String.format("%1$02d", i)
 					+ "><![CDATA[");
-			dump.append(this.a.get(i));
-			dump.append("]]></" + this.a.get(0) + String.format("%1$02d", i)
-					+ ">");
+			dump.append(this.elements.get(i));
+			dump.append("]]></" + this.elements.get(0)
+					+ String.format("%1$02d", i) + ">");
 		}
-		dump.append("</" + this.a.get(0) + ">");
+		dump.append("</" + this.elements.get(0) + ">");
 		return dump.toString();
 	}
-	
-	/**
-	 * Returns the context object
-	 * @return Context object
-	 */
-	public Context getContext() {
-		return context;
-	}
 
-	/**
-	 * Sets the context of the segment
-	 * @param context context object
-	 */
-	public void setContext(Context context) {
-		this.context = context;
-	}
-
-	/**
-	 * Returns and <code>Iterator</code> to the elements in the segment.
-	 */
-	@Override
-	public Iterator<String> iterator() {
-		return a.iterator();
-	}
 }

@@ -1,5 +1,5 @@
 /*
-   Copyright [2009] [Prasad Balan]
+   Copyright [2011] [Prasad Balan]
 
    Licensed under the Apache License, Version 2.0 (the "License");
    you may not use this file except in compliance with the License.
@@ -13,8 +13,9 @@
    See the License for the specific language governing permissions and
    limitations under the License.
 
-*/
+ */
 package org.pb.x12;
+
 /**
  * The class represents an X12 context. A X12 context consists of a segment
  * separator, element separator and a composite element separator.
@@ -22,9 +23,9 @@ package org.pb.x12;
  * @author Prasad Balan
  */
 public class Context {
-	private char segmentSeperator;
-	private char elementSeperator;
-	private char compositeElementSeperator;
+	private Character s;
+	private Character e;
+	private Character c;
 
 	/**
 	 * Default constructor.
@@ -44,29 +45,19 @@ public class Context {
 	 * @param c
 	 *            composite element separator
 	 */
-	public Context(char s, char e, char c) {
-		this.segmentSeperator = s;
-		this.elementSeperator = e;
-		this.compositeElementSeperator = c;
+	public Context(Character s, Character e, Character c) {
+		this.s = s;
+		this.e = e;
+		this.c = c;
 	}
 
 	/**
-	 * Returns the segment separator.
+	 * Returns the composite element separator.
 	 * 
-	 * @return a segment separator
+	 * @return composite element separator
 	 */
-	public char getSegmentSeperator() {
-		return segmentSeperator;
-	}
-
-	/**
-	 * Sets the segment separator.
-	 * 
-	 * @param segmentSeperator
-	 *            the segment separator
-	 */
-	public void setSegmentSeperator(char segmentSeperator) {
-		this.segmentSeperator = segmentSeperator;
+	public Character getCompositeElementSeparator() {
+		return c;
 	}
 
 	/**
@@ -74,37 +65,47 @@ public class Context {
 	 * 
 	 * @return an element separator
 	 */
-	public char getElementSeperator() {
-		return elementSeperator;
+	public Character getElementSeparator() {
+		return e;
 	}
 
 	/**
-	 * Sets the element separator.
+	 * Returns the segment separator.
 	 * 
-	 * @param elementSeperator
-	 *            the element separator.
+	 * @return a segment separator
 	 */
-	public void setElementSeperator(char elementSeperator) {
-		this.elementSeperator = elementSeperator;
-	}
-
-	/**
-	 * Returns the composite element separator.
-	 * 
-	 * @return composite element seperator
-	 */
-	public char getCompositeElementSeperator() {
-		return compositeElementSeperator;
+	public Character getSegmentSeparator() {
+		return s;
 	}
 
 	/**
 	 * Sets the composite element separator.
 	 * 
-	 * @param compositeElementSeperator
+	 * @param c
 	 *            the composite element separator.
 	 */
-	public void setCompositeElementSeperator(char compositeElementSeperator) {
-		this.compositeElementSeperator = compositeElementSeperator;
+	public void setCompositeElementSeparator(Character c) {
+		this.c = c;
+	}
+
+	/**
+	 * Sets the element separator.
+	 * 
+	 * @param e
+	 *            the element separator.
+	 */
+	public void setElementSeparator(Character e) {
+		this.e = e;
+	}
+
+	/**
+	 * Sets the segment separator.
+	 * 
+	 * @param s
+	 *            the segment separator
+	 */
+	public void setSegmentSeparator(Character s) {
+		this.s = s;
 	}
 
 	/**
@@ -112,8 +113,7 @@ public class Context {
 	 * composite element separator.
 	 */
 	public String toString() {
-		return "[" + this.compositeElementSeperator + ","
-				+ this.elementSeperator + "," + this.segmentSeperator + "]";
+		return "[" + this.c + "," + this.e + "," + this.s + "]";
 	}
 
 }

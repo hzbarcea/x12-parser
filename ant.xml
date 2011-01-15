@@ -20,10 +20,10 @@
 
 	<target name="dist" depends="compile" description="generate the distribution">
 		<mkdir dir="${dist.dir}" />
-		<jar jarfile="${dist.dir}/X12-V0.5.jar" 
+		<jar jarfile="${dist.dir}/X12-V0.7.jar" 
 			basedir="${current.dir}" 
 			includes="target/classes/**, LICENSE-2.0.txt" />
-		<jar jarfile="${dist.dir}/X12-V0.5-src.jar" 
+		<jar jarfile="${dist.dir}/X12-V0.7-src.jar" 
 			basedir="${current.dir}"
 			includes="src/**, ant.xml, LICENSE-2.0.txt" />
 	</target>
