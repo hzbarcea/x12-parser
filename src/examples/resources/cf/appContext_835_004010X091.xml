@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+            
+	<bean id="bean_X12" class="org.pb.x12.Cf">
+		<constructor-arg index="0" value="X12" />
+		<property name="children">
+			<list>
+				<ref bean="bean_ISA" />
+				<ref bean="bean_IEA" />
+			</list>
+		</property>
+	</bean>
+	<bean id="bean_ISA" class="org.pb.x12.Cf">
+		<constructor-arg index="0" value="ISA" />
+		<constructor-arg index="1" value="ISA" />
+		<property name="children">
+			<list>
+				<ref bean="bean_GS" />
+				<ref bean="bean_GE" />
+			</list>
+		</property>
+	</bean>
+	<bean id="bean_GS" class="org.pb.x12.Cf">
+		<constructor-arg index="0" value="GS" />
+		<constructor-arg index="1" value="GS" />
+		<property name="children">
+			<list>
+				<ref bean="bean_ST" />
+				<ref bean="bean_SE" />
+			</list>
+		</property>
+	</bean>
+	<bean id="bean_ST" class="org.pb.x12.Cf">
+		<constructor-arg index="0" value="ST" />
+		<constructor-arg index="1" value="ST" />
+		<constructor-arg index="2" value="835" />
+		<constructor-arg index="3" value="1" />
+		<property name="children">
+			<list>
+				<ref bean="bean_1000A" />
+				<ref bean="bean_1000B" />
+				<ref bean="bean_2000" />
+			</list>
+		</property>
+	</bean>
+	<bean id="bean_1000A" class="org.pb.x12.Cf">
+		<constructor-arg index="0" value="1000A" />
+		<constructor-arg index="1" value="N1" />
+		<constructor-arg index="2" value="PR" />
+		<constructor-arg index="3" value="1" />
+	</bean>
+	<bean id="bean_1000B" class="org.pb.x12.Cf">
+		<constructor-arg index="0" value="1000B" />
+		<constructor-arg index="1" value="N1" />
+		<constructor-arg index="2" value="PE" />
+		<constructor-arg index="3" value="1" />
+	</bean>
+	<bean id="bean_2000" class="org.pb.x12.Cf">
+		<constructor-arg index="0" value="2000" />
+		<constructor-arg index="1" value="LX" />
+		<property name="children">
+			<list>
+				<ref bean="bean_2100" />
+			</list>
+		</property>
+	</bean>
+	<bean id="bean_2100" class="org.pb.x12.Cf">
+		<constructor-arg index="0" value="2100" />
+		<constructor-arg index="1" value="CLP" />
+		<property name="children">
+			<list>
+				<ref bean="bean_2110" />
+			</list>
+		</property>
+	</bean>
+	<bean id="bean_2110" class="org.pb.x12.Cf">
+		<constructor-arg index="0" value="2110" />
+		<constructor-arg index="1" value="SVC" />
+	</bean>
+	<bean id="bean_SE" class="org.pb.x12.Cf">
+		<constructor-arg index="0" value="SE" />
+		<constructor-arg index="1" value="SE" />
+	</bean>
+	<bean id="bean_GE" class="org.pb.x12.Cf">
+		<constructor-arg index="0" value="GE" />
+		<constructor-arg index="1" value="GE" />
+	</bean>
+	<bean id="bean_IEA" class="org.pb.x12.Cf">
+		<constructor-arg index="0" value="IEA" />
+		<constructor-arg index="1" value="IEA" />
+	</bean>
+</beans>

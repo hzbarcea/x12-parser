@@ -1,0 +1,339 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+
+	<bean id="bean_X12" class="org.pb.x12.Cf">
+		<constructor-arg index="0" value="X12" />
+		<constructor-arg index="1" value="" />
+		<property name="children">
+			<list>
+				<ref bean="bean_ISA" />
+				<ref bean="bean_IEA" />
+			</list>
+		</property>
+	</bean>
+	<bean id="bean_ISA" class="org.pb.x12.Cf">
+		<constructor-arg index="0" value="ISA" />
+		<constructor-arg index="1" value="ISA" />
+		<property name="children">
+			<list>
+				<ref bean="bean_GS" />
+				<ref bean="bean_GE" />
+			</list>
+		</property>
+	</bean>
+	<bean id="bean_GS" class="org.pb.x12.Cf">
+		<constructor-arg index="0" value="GS" />
+		<constructor-arg index="1" value="GS" />
+		<property name="children">
+			<list>
+				<ref bean="bean_ST" />
+				<ref bean="bean_SE" />
+			</list>
+		</property>
+	</bean>
+	<bean id="bean_ST" class="org.pb.x12.Cf">
+		<constructor-arg index="0" value="ST" />
+		<constructor-arg index="1" value="ST" />
+		<property name="children">
+			<list>
+				<ref bean="bean_1000A" />
+				<ref bean="bean_1000B" />
+				<ref bean="bean_2000A" />
+				<ref bean="bean_2000B" />
+				<ref bean="bean_2000C" />
+			</list>
+		</property>
+	</bean>
+	<bean id="bean_1000A" class="org.pb.x12.Cf">
+		<constructor-arg index="0" value="1000A" />
+		<constructor-arg index="1" value="NM1" />
+		<constructor-arg index="2" value="41" />
+		<constructor-arg index="3" value="1" />
+	</bean>
+	<bean id="bean_1000B" class="org.pb.x12.Cf">
+		<constructor-arg index="0" value="1000B" />
+		<constructor-arg index="1" value="NM1" />
+		<constructor-arg index="2" value="40" />
+		<constructor-arg index="3" value="1" />
+	</bean>
+	<bean id="bean_2000A" class="org.pb.x12.Cf">
+		<constructor-arg index="0" value="2000A" />
+		<constructor-arg index="1" value="HL" />
+		<constructor-arg index="2" value="20" />
+		<constructor-arg index="3" value="3" />
+		<property name="children">
+			<list>
+				<ref bean="bean_2010AA" />
+				<ref bean="bean_2010AB" />
+			</list>
+		</property>
+	</bean>
+	<bean id="bean_2010AA" class="org.pb.x12.Cf">
+		<constructor-arg index="0" value="2010AA" />
+		<constructor-arg index="1" value="NM1" />
+		<constructor-arg index="2" value="85" />
+		<constructor-arg index="3" value="1" />
+	</bean>
+	<bean id="bean_2010AB" class="org.pb.x12.Cf">
+		<constructor-arg index="0" value="2010AB" />
+		<constructor-arg index="1" value="NM1" />
+		<constructor-arg index="2" value="87" />
+		<constructor-arg index="3" value="1" />
+	</bean>
+	<!-- Note Loop 2300 can exist under 2000B or 2000C. So you need
+	to add it as a child to both the loops -->
+	<bean id="bean_2000B" class="org.pb.x12.Cf">
+		<constructor-arg index="0" value="2000B" />
+		<constructor-arg index="1" value="HL" />
+		<constructor-arg index="2" value="22" />
+		<constructor-arg index="3" value="3" />
+		<property name="children">
+			<list>
+				<ref bean="bean_2010BA" />
+				<ref bean="bean_2010BB" />
+				<ref bean="bean_2010BC" />
+				<ref bean="bean_2010BD" />
+				<ref bean="bean_2300" />
+			</list>
+		</property>
+	</bean>
+	<bean id="bean_2010BA" class="org.pb.x12.Cf">
+		<constructor-arg index="0" value="2010BA" />
+		<constructor-arg index="1" value="NM1" />
+		<constructor-arg index="2" value="IL" />
+		<constructor-arg index="3" value="1" />
+	</bean>
+	<bean id="bean_2010BB" class="org.pb.x12.Cf">
+		<constructor-arg index="0" value="2010BB" />
+		<constructor-arg index="1" value="NM1" />
+		<constructor-arg index="2" value="PR" />
+		<constructor-arg index="3" value="1" />
+	</bean>
+	<bean id="bean_2010BC" class="org.pb.x12.Cf">
+		<constructor-arg index="0" value="2010BC" />
+		<constructor-arg index="1" value="NM1" />
+		<constructor-arg index="2" value="QD" />
+		<constructor-arg index="3" value="1" />
+	</bean>
+	<bean id="bean_2010BD" class="org.pb.x12.Cf">
+		<constructor-arg index="0" value="2010BD" />
+		<constructor-arg index="1" value="NM1" />
+		<constructor-arg index="2" value="AO" />
+		<constructor-arg index="3" value="1" />
+	</bean>
+	<bean id="bean_2300" class="org.pb.x12.Cf">
+		<constructor-arg index="0" value="2300" />
+		<constructor-arg index="1" value="CLM" />
+		<property name="children">
+			<list>
+				<ref bean="bean_2305" />
+				<ref bean="bean_2310A" />
+				<ref bean="bean_2310B" />
+				<ref bean="bean_2310C" />
+				<ref bean="bean_2310D" />
+				<ref bean="bean_2310E" />
+				<ref bean="bean_2320" />
+				<ref bean="bean_2400" />
+			</list>
+		</property>
+	</bean>
+	<bean id="bean_2305" class="org.pb.x12.Cf">
+		<constructor-arg index="0" value="2305" />
+		<constructor-arg index="1" value="CR7" />
+	</bean>
+	<bean id="bean_2310A" class="org.pb.x12.Cf">
+		<constructor-arg index="0" value="2310A" />
+		<constructor-arg index="1" value="NM1" />
+		<constructor-arg index="2" value="DN,P3" />
+		<constructor-arg index="3" value="1" />
+	</bean>
+	<bean id="bean_2310B" class="org.pb.x12.Cf">
+		<constructor-arg index="0" value="2310B" />
+		<constructor-arg index="1" value="NM1" />
+		<constructor-arg index="2" value="82" />
+		<constructor-arg index="3" value="1" />
+	</bean>
+	<bean id="bean_2310C" class="org.pb.x12.Cf">
+		<constructor-arg index="0" value="2310C" />
+		<constructor-arg index="1" value="NM1" />
+		<constructor-arg index="2" value="QB" />
+		<constructor-arg index="3" value="1" />
+	</bean>
+	<bean id="bean_2310D" class="org.pb.x12.Cf">
+		<constructor-arg index="0" value="2310D" />
+		<constructor-arg index="1" value="NM1" />
+		<constructor-arg index="2" value="77,FA,LI,TL" />
+		<constructor-arg index="3" value="1" />
+	</bean>
+	<bean id="bean_2310E" class="org.pb.x12.Cf">
+		<constructor-arg index="0" value="2310E" />
+		<constructor-arg index="1" value="NM1" />
+		<constructor-arg index="2" value="DQ" />
+		<constructor-arg index="3" value="1" />
+	</bean>
+	<bean id="bean_2320" class="org.pb.x12.Cf">
+		<constructor-arg index="0" value="2320" />
+		<constructor-arg index="1" value="SBR" />
+		<property name="children">
+			<list>
+				<ref bean="bean_2330A" />
+				<ref bean="bean_2330B" />
+				<ref bean="bean_2330C" />
+				<ref bean="bean_2330D" />
+				<ref bean="bean_2330E" />
+				<ref bean="bean_2330F" />
+				<ref bean="bean_2330G" />
+				<ref bean="bean_2330H" />
+			</list>
+		</property>
+	</bean>
+	<bean id="bean_2330A" class="org.pb.x12.Cf">
+		<constructor-arg index="0" value="2330A" />
+		<constructor-arg index="1" value="NM1" />
+		<constructor-arg index="2" value="IL" />
+		<constructor-arg index="3" value="1" />
+	</bean>
+	<bean id="bean_2330B" class="org.pb.x12.Cf">
+		<constructor-arg index="0" value="2330B" />
+		<constructor-arg index="1" value="NM1" />
+		<constructor-arg index="2" value="PR" />
+		<constructor-arg index="3" value="1" />
+	</bean>
+	<bean id="bean_2330C" class="org.pb.x12.Cf">
+		<constructor-arg index="0" value="2330C" />
+		<constructor-arg index="1" value="NM1" />
+		<constructor-arg index="2" value="QC" />
+		<constructor-arg index="3" value="1" />
+	</bean>
+	<bean id="bean_2330D" class="org.pb.x12.Cf">
+		<constructor-arg index="0" value="2330D" />
+		<constructor-arg index="1" value="NM1" />
+		<constructor-arg index="2" value="DN,P3" />
+		<constructor-arg index="3" value="1" />
+	</bean>
+	<bean id="bean_2330E" class="org.pb.x12.Cf">
+		<constructor-arg index="0" value="2330E" />
+		<constructor-arg index="1" value="NM1" />
+		<constructor-arg index="2" value="82" />
+		<constructor-arg index="3" value="1" />
+	</bean>
+	<bean id="bean_2330F" class="org.pb.x12.Cf">
+		<constructor-arg index="0" value="2330F" />
+		<constructor-arg index="1" value="NM1" />
+		<constructor-arg index="2" value="QB" />
+		<constructor-arg index="3" value="1" />
+	</bean>
+	<bean id="bean_2330G" class="org.pb.x12.Cf">
+		<constructor-arg index="0" value="2330G" />
+		<constructor-arg index="1" value="NM1" />
+		<constructor-arg index="2" value="77,FA,LI,TL" />
+		<constructor-arg index="3" value="1" />
+	</bean>
+	<bean id="bean_2330H" class="org.pb.x12.Cf">
+		<constructor-arg index="0" value="2330H" />
+		<constructor-arg index="1" value="NM1" />
+		<constructor-arg index="2" value="DQ" />
+		<constructor-arg index="3" value="1" />
+	</bean>
+	<bean id="bean_2400" class="org.pb.x12.Cf">
+		<constructor-arg index="0" value="2400" />
+		<constructor-arg index="1" value="LX" />
+		<property name="children">
+			<list>
+				<ref bean="bean_2420A" />
+				<ref bean="bean_2420B" />
+				<ref bean="bean_2420C" />
+				<ref bean="bean_2420D" />
+				<ref bean="bean_2420E" />
+				<ref bean="bean_2420F" />
+				<ref bean="bean_2420G" />
+				<ref bean="bean_2430" />
+				<ref bean="bean_2440" />
+			</list>
+		</property>
+	</bean>
+	<bean id="bean_2420A" class="org.pb.x12.Cf">
+		<constructor-arg index="0" value="2420A" />
+		<constructor-arg index="1" value="NM1" />
+		<constructor-arg index="2" value="82" />
+		<constructor-arg index="3" value="1" />
+	</bean>
+	<bean id="bean_2420B" class="org.pb.x12.Cf">
+		<constructor-arg index="0" value="2420B" />
+		<constructor-arg index="1" value="NM1" />
+		<constructor-arg index="2" value="QB" />
+		<constructor-arg index="3" value="1" />
+	</bean>
+	<bean id="bean_2420C" class="org.pb.x12.Cf">
+		<constructor-arg index="0" value="2420C" />
+		<constructor-arg index="1" value="NM1" />
+		<constructor-arg index="2" value="77,FA,LI,TL" />
+		<constructor-arg index="3" value="1" />
+	</bean>
+	<bean id="bean_2420D" class="org.pb.x12.Cf">
+		<constructor-arg index="0" value="2420D" />
+		<constructor-arg index="1" value="NM1" />
+		<constructor-arg index="2" value="DQ" />
+		<constructor-arg index="3" value="1" />
+	</bean>
+	<bean id="bean_2420E" class="org.pb.x12.Cf">
+		<constructor-arg index="0" value="2420E" />
+		<constructor-arg index="1" value="NM1" />
+		<constructor-arg index="2" value="DK" />
+		<constructor-arg index="3" value="1" />
+	</bean>
+	<bean id="bean_2420F" class="org.pb.x12.Cf">
+		<constructor-arg index="0" value="2420F" />
+		<constructor-arg index="1" value="NM1" />
+		<constructor-arg index="2" value="DN,P3" />
+		<constructor-arg index="3" value="1" />
+	</bean>
+	<bean id="bean_2420G" class="org.pb.x12.Cf">
+		<constructor-arg index="0" value="2420G" />
+		<constructor-arg index="1" value="NM1" />
+		<constructor-arg index="2" value="PR" />
+		<constructor-arg index="3" value="1" />
+	</bean>
+	<bean id="bean_2430" class="org.pb.x12.Cf">
+		<constructor-arg index="0" value="2430" />
+		<constructor-arg index="1" value="SVD" />
+	</bean>
+	<bean id="bean_2440" class="org.pb.x12.Cf">
+		<constructor-arg index="0" value="2440" />
+		<constructor-arg index="1" value="LQ" />
+	</bean>
+	<bean id="bean_2000C" class="org.pb.x12.Cf">
+		<constructor-arg index="0" value="2000C" />
+		<constructor-arg index="1" value="HL" />
+		<constructor-arg index="2" value="23" />
+		<constructor-arg index="3" value="3" />
+		<property name="children">
+			<list>
+				<ref bean="bean_2010CA" />
+				<ref bean="bean_2300" />
+			</list>
+		</property>
+	</bean>
+	<bean id="bean_2010CA" class="org.pb.x12.Cf">
+		<constructor-arg index="0" value="2010CA" />
+		<constructor-arg index="1" value="NM1" />
+		<constructor-arg index="2" value="QC" />
+		<constructor-arg index="3" value="1" />
+	</bean>
+	<bean id="bean_SE" class="org.pb.x12.Cf">
+		<constructor-arg index="0" value="SE" />
+		<constructor-arg index="1" value="SE" />
+	</bean>
+	<bean id="bean_GE" class="org.pb.x12.Cf">
+		<constructor-arg index="0" value="GE" />
+		<constructor-arg index="1" value="GE" />
+	</bean>
+	<bean id="bean_IEA" class="org.pb.x12.Cf">
+		<constructor-arg index="0" value="IEA" />
+		<constructor-arg index="1" value="IEA" />
+	</bean>
+
+</beans>
