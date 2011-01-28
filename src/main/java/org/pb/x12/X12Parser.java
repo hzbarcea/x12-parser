@@ -16,11 +16,13 @@
  */
 package org.pb.x12;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.Reader;
 import java.util.Scanner;
 
 /**
@@ -103,42 +105,20 @@ public class X12Parser implements Parser {
 	 */
 	@Override
 	public EDI parse(InputStream source) throws FormatException, IOException {
-		final char[] buffer = new char[SIZE];
-		InputStreamReader input = new InputStreamReader(source);
-		int count = input.read(buffer, 0, SIZE);
-		input.reset();
-		if (count != SIZE) {
-			throw new FormatException();
+		StringBuffer strBuffer = new StringBuffer();
+		char[] cbuf = new char[1024];
+
+		Reader reader = new BufferedReader(new InputStreamReader(source));
+
+		while ((reader.read(cbuf)) != -1) {
+			strBuffer.append(cbuf);
 		}
 
-		Context context = new Context();
-		context.setSegmentSeparator(buffer[POS_SEGMENT]);
-		context.setElementSeparator(buffer[POS_ELEMENT]);
-		context.setCompositeElementSeparator(buffer[POS_COMPOSITE_ELEMENT]);
+		String strSource = strBuffer.toString();
 
-		Scanner scanner = new Scanner(source);
-		scanner.useDelimiter(context.getSegmentSeparator() + "\r\n|"
-				+ context.getSegmentSeparator() + "\n|"
-				+ context.getSegmentSeparator());
-		X12 x12 = new X12(context);
-		Loop loop = x12;
-		while (scanner.hasNext()) {
-			String line = scanner.next();
-			String[] tokens = line.split("\\" + context.getElementSeparator());
-			if (doesChildLoopMatch(x12Cf, tokens)) {
-				loop = loop.addChild(x12Cf.getName());
-				loop.addSegment(line);
-			} else if (doesParentLoopMatch(x12Cf, tokens)) {
-				loop = loop.addChild(x12Cf.getName());
-				loop.addSegment(line);
-			} else {
-				loop.addSegment(line);
-			}
-		}
-		scanner.close();
-		return x12;
+		return parse(strSource);
 	}
-
+		
 	/**
 	 * The method takes a X12 string and converts it into a X2 object. The X12
 	 * class has methods to convert it into XML format as well as methods to

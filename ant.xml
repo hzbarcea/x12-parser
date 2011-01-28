@@ -25,7 +25,7 @@
 			includes="target/classes/**, LICENSE-2.0.txt" />
 		<jar jarfile="${dist.dir}/X12-V0.7-src.jar" 
 			basedir="${current.dir}"
-			includes="src/**, ant.xml, LICENSE-2.0.txt" />
+			includes="src/**, ant.xml, LICENSE-2.0.txt, README.txt" />
 	</target>
 
 	<target name="clean" description="clean up">

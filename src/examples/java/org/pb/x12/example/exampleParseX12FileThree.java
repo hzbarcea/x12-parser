@@ -16,11 +16,8 @@
  */
 package org.pb.x12.example;
 
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
-import java.net.URL;
 import java.util.List;
 
 import org.pb.x12.Cf;
@@ -36,7 +33,7 @@ import org.pb.x12.X12Parser;
  * @author Prasad Balan
  * 
  * <pre>
- * Example of parsing a X12 InputStream (does not work in this version).
+ * Example of parsing a X12 InputStream.
  * 
  * This is the modified loop hierarchy of a 835 transaction used in this example.
  * The original/actual hierarchy is in example exampleParseX12FileTwo.
@@ -87,12 +84,10 @@ public class exampleParseX12FileThree {
 		Parser parser = new X12Parser(cf835);
 		Double totalChargeAmount = 0.0;
 		
-		URL url = exampleParseX12FileOne.class.getClass().getResource("/org/pb/x12/example/example835One.txt");
-		File f1 = new File(url.getFile());
-		InputStream stream = new FileInputStream(f1);
-		
+		InputStream is = exampleParseX12FileOne.class.getClass().getResourceAsStream("/org/pb/x12/example/example835One.txt");
+
 		try {
-			x12 = (X12) parser.parse(stream);
+			x12 = (X12) parser.parse(is);
 			
 			// Calculate the total charge amount
 			List<Loop> loops = x12.findLoop("2100");

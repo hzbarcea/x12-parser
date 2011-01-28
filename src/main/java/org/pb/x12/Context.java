@@ -113,7 +113,7 @@ public class Context {
 	 * composite element separator.
 	 */
 	public String toString() {
-		return "[" + this.c + "," + this.e + "," + this.s + "]";
+		return "[" + this.s + "," + this.e + "," + this.c + "]";
 	}
 
 }

@@ -21,7 +21,7 @@ import java.util.List;
 import java.util.ArrayList;
 
 /**
- * The <code>Loop</code> class is the representation of an Loop in a ANSI X12
+ * The Loop class is the representation of an Loop in a ANSI X12
  * transaction. The building block of an X12 transaction is an element. Some
  * elements may be made of sub elements. Elements combine to form segments.
  * Segments are grouped as loops. And a set of loops form an X12 transaction.

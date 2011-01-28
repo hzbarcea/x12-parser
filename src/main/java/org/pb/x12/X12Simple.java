@@ -21,7 +21,7 @@ import java.util.Iterator;
 import java.util.List;
 
 /**
- * The <code>X12</code> class is the object representation of an ANSI X12
+ * The X12 class is the object representation of an ANSI X12
  * transaction. The building block of an X12 transaction is an element. Some
  * elements may be made of sub elements. Elements combine to form segments.
  * Segments are grouped as loops. And a set of loops form an X12 transaction.
@@ -82,9 +82,11 @@ public class X12Simple implements EDI, Iterable<Segment> {
 	 * 
 	 * @param segment
 	 *            <code>Segment</code> representation of the Segment.
+	 * @return a new Segment object
 	 */
-	public void addSegment(Segment segment) {
+	public Segment addSegment(Segment segment) {
 		segments.add(segment);
+		return segment;
 	}
 
 	/**
@@ -126,9 +128,11 @@ public class X12Simple implements EDI, Iterable<Segment> {
 	 * 
 	 * @param segment
 	 *            <code>String</code> representation of the Segment.
+	 * @return a new Segment object            
 	 */
-	public void addSegment(int index, Segment segment) {
+	public Segment addSegment(int index, Segment segment) {
 		segments.add(index, segment);
+		return segment;
 	}
 
 	/**
@@ -228,9 +232,11 @@ public class X12Simple implements EDI, Iterable<Segment> {
 	 *            position of the segment to be replaced.
 	 * @param segment
 	 *            <code>Segment</code>
+	 * @return a new Segment object
 	 */
-	public void setSegment(int index, Segment segment) {
+	public Segment setSegment(int index, Segment segment) {
 		segments.set(index, segment);
+		return segment;
 	}
 
 	/**

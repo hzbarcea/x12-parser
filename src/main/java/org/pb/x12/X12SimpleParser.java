@@ -16,11 +16,13 @@
  */
 package org.pb.x12;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.Reader;
 import java.util.Scanner;
 
 /**
@@ -89,32 +91,18 @@ public class X12SimpleParser implements Parser {
 	 */
 	@Override
 	public EDI parse(InputStream source) throws FormatException, IOException {
-		final char[] buffer = new char[SIZE];
-		InputStreamReader input = new InputStreamReader(source);
-		int count = input.read(buffer, 0, SIZE);
-		input.reset();
-		if (count != SIZE) {
-			throw new FormatException();
+		StringBuffer strBuffer = new StringBuffer();
+		char[] cbuf = new char[1024];
+
+		Reader reader = new BufferedReader(new InputStreamReader(source));
+
+		while ((reader.read(cbuf)) != -1) {
+			strBuffer.append(cbuf);
 		}
 
-		Context context = new Context();
-		context.setSegmentSeparator(buffer[POS_SEGMENT]);
-		context.setElementSeparator(buffer[POS_ELEMENT]);
-		context.setCompositeElementSeparator(buffer[POS_COMPOSITE_ELEMENT]);
+		String strSource = strBuffer.toString();
 
-		Scanner scanner = new Scanner(source);
-		scanner.useDelimiter(context.getSegmentSeparator() + "\r\n|"
-				+ context.getSegmentSeparator() + "\n|"
-				+ context.getSegmentSeparator());
-		X12Simple x12 = new X12Simple(context);
-		while (scanner.hasNext()) {
-			String line = scanner.next();
-			Segment s = x12.addSegment();
-			String[] tokens = line.split("\\" + context.getElementSeparator());
-			s.addElements(tokens);
-		}
-		scanner.close();
-		return x12;
+		return parse(strSource);
 	}
 
 	/**

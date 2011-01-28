@@ -54,9 +54,22 @@ public class Segment implements Iterable<String> {
 	}
 
 	/**
-	 * Adds <code>String</code> elements to the segment. The elements are added
-	 * at the end of the elements in the current segment.
+	 * Adds <code>String</code> with elements to the segment. The elements are
+	 * added at the end of the elements in the current segment. e.g.
+	 * <code>addElements("ISA*ISA01*ISA02");</code>
 	 * 
+	 * @param es
+	 * @return boolean
+	 */
+	public boolean addElements(String s) {
+		String[] elements = s.split("\\" + context.getElementSeparator());
+		return this.addElements(elements);
+	}
+
+	/**
+	 * Adds <code>String</code> elements to the segment. The elements are added
+	 * at the end of the elements in the current segment. e.g.
+	 * <code> addElements("ISA", "ISA01", "ISA02");</code>
 	 * @param es
 	 * @return boolean
 	 */
@@ -196,6 +209,9 @@ public class Segment implements Iterable<String> {
 		for (String s : this.elements) {
 			dump.append(s);
 			dump.append(context.getElementSeparator());
+		}
+		if (dump.length() == 0) {
+			return "";
 		}
 		return dump.substring(0, dump.length() - 1);
 	}
