@@ -91,11 +91,12 @@ public class X12SimpleParser implements Parser {
 	public EDI parse(InputStream source) throws FormatException, IOException {
 		StringBuffer strBuffer = new StringBuffer();
 		char[] cbuf = new char[1024];
+		int length = -1;
 
 		Reader reader = new BufferedReader(new InputStreamReader(source));
 
-		while ((reader.read(cbuf)) != -1) {
-			strBuffer.append(cbuf);
+		while ((length = reader.read(cbuf)) != -1) {
+			strBuffer.append(cbuf, 0, length);
 		}
 
 		String strSource = strBuffer.toString();
