@@ -261,6 +261,15 @@ public class Loop implements Iterable<Segment> {
 	}
 
 	/**
+	 * Returns the loops
+	 * 
+	 * @return List<Loop>
+	 */
+	public List<Loop> getLoops() {
+		return this.loops;
+	}
+	
+	/**
 	 * Returns the <code>Segment<code> at the specified position.
 	 * 
 	 * @param index
@@ -270,6 +279,15 @@ public class Loop implements Iterable<Segment> {
 		return segments.get(index);
 	}
 
+	/**
+	 * Returns the segments in the current loop.
+	 * 
+	 * @return List<Segment>
+	 */
+	public List<Segment> getSegments() {
+		return this.segments;
+	}
+	
 	/**
 	 * Returns the name of the current Loop.
 	 * 

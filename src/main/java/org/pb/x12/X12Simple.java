@@ -172,6 +172,14 @@ public class X12Simple implements EDI, Iterable<Segment> {
 	}
 
 	/**
+	 * 
+	 * @return
+	 */
+	public List<Segment> getSegments() {
+		return this.segments;
+	}
+	
+	/**
 	 * Returns and <code>Iterator</code> to the elements in the segment.
 	 * 
 	 * @return Iterator<String>
