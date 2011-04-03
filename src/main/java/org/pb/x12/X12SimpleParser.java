@@ -68,8 +68,6 @@ public class X12SimpleParser implements Parser {
 				+ context.getSegmentSeparator() + "\n|"
 				+ context.getSegmentSeparator());
 		X12Simple x12 = new X12Simple(context);
-		String isa = new String(buffer);
-		x12.addSegment(isa);
 		while (scanner.hasNext()) {
 			String line = scanner.next();
 			x12.addSegment(line);
