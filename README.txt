@@ -1,8 +1,15 @@
 X12 Parser 
-Current Version : V0.7
+Current Version : V0.8
 
 CHANGES
 -------------------------------------------------------------------------------
+V0.8
+Fixed parsing problem in X12SimpleParser and X12Parser with parse(File file). 
+When reading ISA segment was being read twice. 
+Fixed issue with parse(InputStream in) method, that was causing blank spaces
+being padded at the end of IEA segment. 
+
+
 V0.7
 Not compatible with the previous versions.
 Earlier class X12 is now X12Simple. Provides the same features as earlier.
