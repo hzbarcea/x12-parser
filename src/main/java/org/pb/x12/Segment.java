@@ -145,6 +145,14 @@ public class Segment implements Iterable<String> {
 	}
 
 	/**
+	 * 
+	 * @return
+	 */
+	public List<String> getElements() {
+		return this.elements;
+	}
+	
+	/**
 	 * Returns and <code>Iterator</code> to the elements in the segment.
 	 * 
 	 * @return Iterator<String>
