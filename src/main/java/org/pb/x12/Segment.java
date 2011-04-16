@@ -58,7 +58,7 @@ public class Segment implements Iterable<String> {
 	 * added at the end of the elements in the current segment. e.g.
 	 * <code>addElements("ISA*ISA01*ISA02");</code>
 	 * 
-	 * @param es
+	 * @param s
 	 * @return boolean
 	 */
 	public boolean addElements(String s) {
@@ -146,7 +146,7 @@ public class Segment implements Iterable<String> {
 
 	/**
 	 * 
-	 * @return
+	 * @return List of elements
 	 */
 	public List<String> getElements() {
 		return this.elements;

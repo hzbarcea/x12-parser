@@ -49,7 +49,7 @@ public class exampleParseX12SimpleFileOne {
 		Parser parser = new X12SimpleParser();
 		Double totalChargeAmount = 0.0;
 		
-		URL url = exampleParseX12FileOne.class.getClass().getResource("/org/pb/x12/example/example835One.txt");
+		URL url = exampleParseX12FileOne.class.getResource("/org/pb/x12/example/example835One.txt");
 		File f1 = new File(url.getFile());
 
 		try {

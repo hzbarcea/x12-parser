@@ -1,14 +1,18 @@
 X12 Parser 
-Current Version : V0.8
+Current Version : V0.9
 
 CHANGES
 -------------------------------------------------------------------------------
+V0.9
+Fixed problem with X12Parser. Loop detection logic was not working correctly.
+Backward compatible with versions V0.7 and V0.8.
+Recommended upgrade for users of V0.7 and V0.8 
+
 V0.8
 Fixed parsing problem in X12SimpleParser and X12Parser with parse(File file). 
 When reading ISA segment was being read twice. 
 Fixed issue with parse(InputStream in) method, that was causing blank spaces
 being padded at the end of IEA segment. 
-
 
 V0.7
 Not compatible with the previous versions.

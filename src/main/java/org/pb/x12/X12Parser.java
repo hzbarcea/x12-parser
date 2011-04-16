@@ -39,6 +39,8 @@ public class X12Parser implements Parser {
 	public static final int POS_COMPOSITE_ELEMENT = 104;
 
 	private Cf x12Cf;
+	private Cf cfMarker;
+	private Loop loopMarker;
 
 	public X12Parser(Cf cf) {
 		this.x12Cf = cf;
@@ -69,29 +71,44 @@ public class X12Parser implements Parser {
 		context.setElementSeparator(buffer[POS_ELEMENT]);
 		context.setCompositeElementSeparator(buffer[POS_COMPOSITE_ELEMENT]);
 
-		Scanner scanner = new Scanner(fileName);
+		Scanner scanner = new Scanner(fileName);		
+		X12 x12 = scanSource(scanner, context);		
+		scanner.close();
+		return x12;		
+	}
+
+	/**
+	 * private helper method
+	 * @param scanner
+	 * @param context
+	 * @return
+	 */
+	private X12 scanSource(Scanner scanner, Context context) {
 		scanner.useDelimiter(context.getSegmentSeparator() + "\r\n|"
 				+ context.getSegmentSeparator() + "\n|"
 				+ context.getSegmentSeparator());
+
+		cfMarker = x12Cf;
 		X12 x12 = new X12(context);
+		loopMarker = x12;
 		Loop loop = x12;
+
 		while (scanner.hasNext()) {
 			String line = scanner.next();
 			String[] tokens = line.split("\\" + context.getElementSeparator());
-			if (doesChildLoopMatch(x12Cf, tokens)) {
-				loop = loop.addChild(x12Cf.getName());
+			if (doesChildLoopMatch(cfMarker, tokens)) {
+				loop = loop.addChild(cfMarker.getName());
 				loop.addSegment(line);
-			} else if (doesParentLoopMatch(x12Cf, tokens)) {
-				loop = loop.addChild(x12Cf.getName());
+			} else if (doesParentLoopMatch(cfMarker, tokens, loop)) {
+				loop = loopMarker.addChild(cfMarker.getName());
 				loop.addSegment(line);
 			} else {
 				loop.addSegment(line);
 			}
-		}
-		scanner.close();
+		}		
 		return x12;
 	}
-
+	
 	/**
 	 * The method takes a InputStream and converts it into a X2 object. The X12
 	 * class has methods to convert it into XML format as well as methods to
@@ -116,7 +133,6 @@ public class X12Parser implements Parser {
 		}
 
 		String strSource = strBuffer.toString();
-
 		return parse(strSource);
 	}
 		
@@ -142,29 +158,12 @@ public class X12Parser implements Parser {
 		context.setCompositeElementSeparator(source
 				.charAt(POS_COMPOSITE_ELEMENT));
 
-		Scanner scanner = new Scanner(source);
-		scanner.useDelimiter(context.getSegmentSeparator() + "\r\n|"
-				+ context.getSegmentSeparator() + "\n|"
-				+ context.getSegmentSeparator());
-		X12 x12 = new X12(context);
-		Loop loop = x12;
-		while (scanner.hasNext()) {
-			String line = scanner.next();
-			String[] tokens = line.split("\\" + context.getElementSeparator());
-			if (doesChildLoopMatch(x12Cf, tokens)) {
-				loop = loop.addChild(x12Cf.getName());
-				loop.addSegment(line);
-			} else if (doesParentLoopMatch(x12Cf, tokens)) {
-				loop = loop.addChild(x12Cf.getName());
-				loop.addSegment(line);
-			} else {
-				loop.addSegment(line);
-			}
-		}
+		Scanner scanner = new Scanner(source);		
+		X12 x12 = scanSource(scanner, context);		
 		scanner.close();
-		return x12;
+		return x12;		
 	}
-
+ 
 	/**
 	 * Checks if the segment (or line read) matches to current loop
 	 * 
@@ -202,7 +201,7 @@ public class X12Parser implements Parser {
 	boolean doesChildLoopMatch(Cf parent, String[] tokens) {
 		for (Cf cf : parent.childList()) {
 			if (doesLoopMatch(cf, tokens)) {
-				x12Cf = cf;
+				cfMarker = cf;
 				return true;
 			}
 		}
@@ -217,20 +216,26 @@ public class X12Parser implements Parser {
 	 *            Cf
 	 * @param tokens
 	 *            String[] represents the segment broken into elements
+	 * @param loop
+	 *            Loop            
 	 * @return boolean
 	 */
-	private boolean doesParentLoopMatch(Cf child, String[] tokens) {
+	private boolean doesParentLoopMatch(Cf child, String[] tokens, Loop loop) {
 		Cf parent = child.getParent();
 		if (parent == null)
 			return false;
+		
+		loopMarker = loop.getParent();
 		for (Cf cf : parent.childList()) {
 			if (doesLoopMatch(cf, tokens)) {
-				x12Cf = cf;
+				cfMarker = cf;
 				return true;
 			}
 		}
-		if (doesParentLoopMatch(parent, tokens))
+		
+		if (doesParentLoopMatch(parent, tokens, loopMarker))
 			return true;
+		
 		return false;
 	}
 }

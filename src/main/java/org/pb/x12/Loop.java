@@ -36,6 +36,8 @@ public class Loop implements Iterable<Segment> {
 	private String name;
 	private List<Segment> segments = new ArrayList<Segment>();
 	private List<Loop> loops = new ArrayList<Loop>();
+	private Loop parent;
+	private int depth; // used to debug
 
 	/**
 	 * The constructor takes a context object.
@@ -46,6 +48,7 @@ public class Loop implements Iterable<Segment> {
 	public Loop(Context c, String name) {
 		this.context = c;
 		this.name = name;
+		this.parent = null;
 	}
 
 	/**
@@ -59,6 +62,8 @@ public class Loop implements Iterable<Segment> {
 	 */
 	public Loop addChild(String name) {
 		Loop l = new Loop(this.context, name);
+		l.setParent(this);
+		l.depth = this.depth + 1; // debug
 		loops.add(l);
 		return l;
 	}
@@ -70,6 +75,8 @@ public class Loop implements Iterable<Segment> {
 	 *            position at which to add the loop.
 	 */
 	public void addChild(int index, Loop loop) {
+		loop.setParent(this);
+		loop.depth = this.depth + 1; // debug
 		loops.add(index, loop);
 	}
 
@@ -171,6 +178,8 @@ public class Loop implements Iterable<Segment> {
 	 */
 	public Loop addChild(int index, String name) {
 		Loop l = new Loop(this.context, name);
+		l.setParent(this);
+		l.depth = this.depth + 1; // debug
 		loops.add(index, l);
 		return l;
 	}
@@ -268,7 +277,15 @@ public class Loop implements Iterable<Segment> {
 	public List<Loop> getLoops() {
 		return this.loops;
 	}
-	
+
+	/**
+	 * 
+	 * @return Parent Loop
+	 */
+	public Loop getParent() {
+		return parent;
+	}
+
 	/**
 	 * Returns the <code>Segment<code> at the specified position.
 	 * 
@@ -352,6 +369,8 @@ public class Loop implements Iterable<Segment> {
 	 */
 	public Loop setChild(int index, String name) {
 		Loop l = new Loop(this.context, name);
+		l.setParent(this);
+		l.depth = this.depth + 1; // debug
 		loops.set(index, l);
 		return l;
 	}
@@ -365,9 +384,19 @@ public class Loop implements Iterable<Segment> {
 	 *            Loop to add            
 	 */
 	public void setChild(int index, Loop loop) {
+		loop.setParent(this);
+		loop.depth = this.depth + 1; // debug
 		loops.set(index, loop);
 	}
 
+	/**
+	 * 
+	 * @param parent
+	 */
+	public void setParent(Loop parent) {
+		this.parent = parent;
+	}
+		
 	/**
 	 * Creates an empty instance of <code>Segment</code> and replaces the
 	 * segment at specified position in the X12 transaction. The returned
@@ -462,4 +491,11 @@ public class Loop implements Iterable<Segment> {
 		return dump.toString();
 	}
 
+	/**
+	 * Generally not used. Mostly for debugging. 
+	 * @return depth
+	 */
+	public int getDepth() {
+		return depth;
+	}
 }

@@ -193,10 +193,11 @@ public class LoopTest {
 		loop.addChild("2000");
 		loop.addChild("2100");
 		loop.addChild("2110");
+		loop.addChild("SE");
 		loop.addChild("GE");
 		loop.addChild("IEA");
 		List<Loop> childList = loop.childList();
-		assertEquals(new Integer(10), new Integer(childList.size()));
+		assertEquals(new Integer(11), new Integer(childList.size()));
 	}
 
 	@Test

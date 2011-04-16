@@ -173,7 +173,7 @@ public class X12Simple implements EDI, Iterable<Segment> {
 
 	/**
 	 * 
-	 * @return
+	 * @return List of segments
 	 */
 	public List<Segment> getSegments() {
 		return this.segments;
