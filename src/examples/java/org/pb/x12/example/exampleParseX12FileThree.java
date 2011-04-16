@@ -65,14 +65,35 @@ import org.pb.x12.X12Parser;
  * // Check the sample spring application context file provided.
  *    
  * Double totalChargeAmount = 0.0;
- * X12 x12 = (X12) parser.parse(new File("C:\\test\\835.txt"));
- * List<Segment> segments = x12.findSegment("CLP");
+ * X12 x12 = (X12) parser.parse(new File(&quot;C:\\test\\835.txt&quot;));
+ * List&lt;Segment&gt; segments = x12.findSegment(&quot;CLP&quot;);
  * for (Segment s : segments) {
  *     totalChargeAmount = totalChargeAmount + Double.parseDouble(s.getElement(3));
  * }
- * System.out.println("Total Change Amount " + s.getElement(3)); 
+ * System.out.println(&quot;Total Change Amount &quot; + s.getElement(3));
+ * </pre>
  * 
- * </pre> 
+ * <pre>
+ * // Simple configuration, single level hierarchy
+ * // Alternately can be loaded using Spring/DI 
+ * private static Cf loadCf() {
+ * 		Cf cfX12 = new Cf(&quot;X12&quot;);
+ * 		cfX12.addChild(&quot;ISA&quot;, &quot;ISA&quot;);
+ * 		cfX12.addChild(&quot;GS&quot;, &quot;GS&quot;);
+ * 		cfX12.addChild(&quot;ST&quot;, &quot;ST&quot;, &quot;835&quot;, 1);
+ * 		cfX12.addChild(&quot;1000A&quot;, &quot;N1&quot;, &quot;PR&quot;, 1);
+ * 		cfX12.addChild(&quot;1000B&quot;, &quot;N1&quot;, &quot;PE&quot;, 1);
+ * 		cfX12.addChild(&quot;2000&quot;, &quot;LX&quot;);
+ * 		cfX12.addChild(&quot;2100&quot;, &quot;CLP&quot;);
+ * 		cfX12.addChild(&quot;2110&quot;, &quot;SVC&quot;);
+ * 		cfX12.addChild(&quot;GE&quot;, &quot;GE&quot;);
+ * 		cfX12.addChild(&quot;IEA&quot;, &quot;IEA&quot;);
+ * 		
+ * 		//System.out.println(cfX12);
+ * 		return cfX12;
+ * }
+ * 
+ * </pre>
  */
 
 

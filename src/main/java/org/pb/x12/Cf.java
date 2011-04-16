@@ -65,7 +65,7 @@ import java.util.List;
  * To parse a X12 835 in the above hierarchy, you need to create a Cf object
  * that represent the hierarchy. Here is the sample code to achieve this.
  * 
- * <code>
+ * <pre>
  * Cf cfX12 = new Cf("X12"); // root node
  * Cf cfISA = cfX12.addChild("ISA", "ISA"); // add as child of X12 
  * Cf cfGS = cfISA.addChild("GS", "GS"); // add as child of ISA
@@ -77,7 +77,7 @@ import java.util.List;
  * cf2100.addChild("2110", "SVC");
  * cfISA.addChild("GE", "GE");
  * cfX12.addChild("IEA", "IEA");
- * </code>
+ * </pre>
  * 
  * Alternate hierarchy for the same transaction. On most occasions a simple
  * hierarchy like below would work. Only when there is more that one loop that
