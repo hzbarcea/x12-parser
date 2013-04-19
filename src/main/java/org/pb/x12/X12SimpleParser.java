@@ -24,6 +24,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
 import java.util.Scanner;
+import java.util.regex.Pattern;
 
 /**
  * The class represents methods used to translate a X12 transaction represented
@@ -63,10 +64,12 @@ public class X12SimpleParser implements Parser {
 		context.setElementSeparator(buffer[POS_ELEMENT]);
 		context.setCompositeElementSeparator(buffer[POS_COMPOSITE_ELEMENT]);
 
+		Character segmentSeparator = context.getSegmentSeparator();
+		String quotedSegmentSeparator = Pattern.quote(segmentSeparator.toString());
+
 		Scanner scanner = new Scanner(fileName);
-		scanner.useDelimiter(context.getSegmentSeparator() + "\r\n|"
-				+ context.getSegmentSeparator() + "\n|"
-				+ context.getSegmentSeparator());
+		scanner.useDelimiter(quotedSegmentSeparator + "\r\n|" + quotedSegmentSeparator + "\n|" + quotedSegmentSeparator);
+
 		X12Simple x12 = new X12Simple(context);
 		while (scanner.hasNext()) {
 			String line = scanner.next();
@@ -123,13 +126,14 @@ public class X12SimpleParser implements Parser {
 		Context context = new Context();
 		context.setSegmentSeparator(source.charAt(POS_SEGMENT));
 		context.setElementSeparator(source.charAt(POS_ELEMENT));
-		context.setCompositeElementSeparator(source
-				.charAt(POS_COMPOSITE_ELEMENT));
+		context.setCompositeElementSeparator(source.charAt(POS_COMPOSITE_ELEMENT));
+
+		Character segmentSeparator = context.getSegmentSeparator();
+		String quotedSegmentSeparator = Pattern.quote(segmentSeparator.toString());
 
 		Scanner scanner = new Scanner(source);
-		scanner.useDelimiter(context.getSegmentSeparator() + "\r\n|"
-				+ context.getSegmentSeparator() + "\n|"
-				+ context.getSegmentSeparator());
+		scanner.useDelimiter(quotedSegmentSeparator + "\r\n|" + quotedSegmentSeparator + "\n|" + quotedSegmentSeparator);
+
 		X12Simple x12 = new X12Simple(context);
 		while (scanner.hasNext()) {
 			String line = scanner.next();

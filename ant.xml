@@ -24,10 +24,10 @@
 			<fileset file="LICENSE-2.0.txt"/>
 			<fileset file="README.txt"/>			
 		</copy>		
-		<jar jarfile="${dist.dir}/X12-V0.8.jar" 
+		<jar jarfile="${dist.dir}/X12-V1.0.jar" 
 			basedir="${build.dir}" 
 			includes="**" />
-		<jar jarfile="${dist.dir}/X12-V0.8-src.jar" 
+		<jar jarfile="${dist.dir}/X12-V1.0-src.jar" 
 			basedir="${current.dir}"
 			includes="src/**, ant.xml, LICENSE-2.0.txt, README.txt" />
 	</target>

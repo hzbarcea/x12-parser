@@ -233,11 +233,9 @@ public class Segment implements Iterable<String> {
 		StringBuffer dump = new StringBuffer();
 		dump.append("<" + this.elements.get(0) + ">");
 		for (int i = 1; i < this.elements.size(); i++) {
-			dump.append("<" + this.elements.get(0) + String.format("%1$02d", i)
-					+ "><![CDATA[");
+			dump.append("<" + this.elements.get(0) + String.format("%1$02d", i) + "><![CDATA[");
 			dump.append(this.elements.get(i));
-			dump.append("]]></" + this.elements.get(0)
-					+ String.format("%1$02d", i) + ">");
+			dump.append("]]></" + this.elements.get(0) + String.format("%1$02d", i) + ">");
 		}
 		dump.append("</" + this.elements.get(0) + ">");
 		return dump.toString();

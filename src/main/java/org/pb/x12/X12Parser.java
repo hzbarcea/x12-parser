@@ -24,6 +24,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
 import java.util.Scanner;
+import java.util.regex.Pattern;
 
 /**
  * The class represents methods used to translate a X12 transaction represented
@@ -71,10 +72,10 @@ public class X12Parser implements Parser {
 		context.setElementSeparator(buffer[POS_ELEMENT]);
 		context.setCompositeElementSeparator(buffer[POS_COMPOSITE_ELEMENT]);
 
-		Scanner scanner = new Scanner(fileName);		
-		X12 x12 = scanSource(scanner, context);		
+		Scanner scanner = new Scanner(fileName);
+		X12 x12 = scanSource(scanner, context);
 		scanner.close();
-		return x12;		
+		return x12;
 	}
 
 	/**
@@ -84,9 +85,10 @@ public class X12Parser implements Parser {
 	 * @return
 	 */
 	private X12 scanSource(Scanner scanner, Context context) {
-		scanner.useDelimiter(context.getSegmentSeparator() + "\r\n|"
-				+ context.getSegmentSeparator() + "\n|"
-				+ context.getSegmentSeparator());
+		Character segmentSeparator = context.getSegmentSeparator();
+		String quotedSegmentSeparator = Pattern.quote(segmentSeparator.toString());
+		
+		scanner.useDelimiter(quotedSegmentSeparator + "\r\n|" + quotedSegmentSeparator + "\n|" + quotedSegmentSeparator);
 
 		cfMarker = x12Cf;
 		X12 x12 = new X12(context);
@@ -105,7 +107,7 @@ public class X12Parser implements Parser {
 			} else {
 				loop.addSegment(line);
 			}
-		}		
+		}
 		return x12;
 	}
 	
@@ -155,13 +157,12 @@ public class X12Parser implements Parser {
 		Context context = new Context();
 		context.setSegmentSeparator(source.charAt(POS_SEGMENT));
 		context.setElementSeparator(source.charAt(POS_ELEMENT));
-		context.setCompositeElementSeparator(source
-				.charAt(POS_COMPOSITE_ELEMENT));
+		context.setCompositeElementSeparator(source.charAt(POS_COMPOSITE_ELEMENT));
 
-		Scanner scanner = new Scanner(source);		
-		X12 x12 = scanSource(scanner, context);		
+		Scanner scanner = new Scanner(source);
+		X12 x12 = scanSource(scanner, context);
 		scanner.close();
-		return x12;		
+		return x12;
 	}
  
 	/**

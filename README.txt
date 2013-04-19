@@ -3,6 +3,9 @@ Current Version : V0.9
 
 CHANGES
 -------------------------------------------------------------------------------
+V1.0-beta
+Handle special characters in segment characters
+
 V0.9
 Fixed problem with X12Parser. Loop detection logic was not working correctly.
 Backward compatible with versions V0.7 and V0.8.
