@@ -1,10 +1,17 @@
 X12 Parser 
-Current Version : V0.9
+Current Version : V1.0-beta
 
 CHANGES
 -------------------------------------------------------------------------------
 V1.0-beta
-Handle special characters in segment characters
+Handle special characters that can be used as segment separators.
+Add removeElement(int index) added to Segment class.
+Add toString(boolean bRemoveTrailingEmptyElements) added to Segment class.
+Add toString(boolean bRemoveTrailingEmptyElements) added to X12Simple class.
+Add toString(boolean bRemoveTrailingEmptyElements) added to Loop class.
+Add toXML(boolean bRemoveTrailingEmptyElements) added to Segment class.
+Add toXML(boolean bRemoveTrailingEmptyElements) added to X12Simple class.
+Add toXML(boolean bRemoveTrailingEmptyElements) added to Loop class.
 
 V0.9
 Fixed problem with X12Parser. Loop detection logic was not working correctly.

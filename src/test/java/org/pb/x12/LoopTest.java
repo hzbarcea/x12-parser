@@ -303,6 +303,36 @@ public class LoopTest {
 	}
 
 	@Test
+	public void testToStringRemoveTrailingEmptyElements() {
+		Loop loop = new Loop(new Context('~', '*', ':'), "ST");
+		Segment s = loop.addSegment("ST*835*000000001");
+		s.addElement("");
+		s.addElement("");
+		assertEquals("ST*835*000000001~", loop.toString(true));
+	}
+
+	@Test
+	public void testToStringRemoveTrailingEmptyElementsTwo() {
+		Loop loop = new Loop(new Context('~', '*', ':'), "ST");
+		Segment s = loop.addSegment("ST*835*000000001***ST05");
+		s.addElement(null);
+		s.addElement(null);
+		assertEquals("ST*835*000000001***ST05~", loop.toString(true));
+	}
+
+	@Test
+	public void testToStringRemoveTrailingEmptyElementsThree() {
+		Loop loop = new Loop(new Context('~', '*', ':'), "ST");
+		Segment s1 = loop.addSegment("ST1*ST101*ST102***ST105");
+		s1.addElement(null);
+		s1.addElement(null);
+		Segment s2 = loop.addSegment("ST2*ST201*ST202***ST205");
+		s2.addElement("");
+		s2.addElement("");	
+		assertEquals("ST1*ST101*ST102***ST105~ST2*ST201*ST202***ST205~", loop.toString(true));
+	}
+
+	@Test
 	public void testToXML() {
 		Loop loop = new Loop(new Context('~', '*', ':'), "ST");
 		loop.addSegment("ST*835*000000001");

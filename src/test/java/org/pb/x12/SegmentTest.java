@@ -27,15 +27,14 @@ public class SegmentTest {
 	@Test
 	public void testAddCompositeElementStringArray() {
 		Segment s = new Segment(new Context('~', '*', ':'));
-		assertEquals(new Boolean(true), s.addCompositeElement("AB","CD","EF"));
+		assertEquals(new Boolean(true), s.addCompositeElement("AB", "CD", "EF"));
 	}
 
 	@Test
 	public void testAddElementIntString() {
 		Segment s = new Segment(new Context('~', '*', ':'));
 		s.addElements("ISA", "ISA01", "ISA02");
-		assertEquals(new Boolean(true), s.addCompositeElement("ISA03_1",
-				"ISA03_2", "ISA03_3"));
+		assertEquals(new Boolean(true), s.addCompositeElement("ISA03_1", "ISA03_2", "ISA03_3"));
 	}
 
 	@Test
@@ -55,17 +54,33 @@ public class SegmentTest {
 	@Test
 	public void testGetElement() {
 		Segment s = new Segment(new Context('~', '*', ':'));
-		s.addElements("ISA", "ISA01", "ISA02", "ISA04");
+		s.addElements("ISA", "ISA01", "ISA02", "ISA03");
 		assertEquals("ISA02", s.getElement(2));
 	}
 
 	@Test
 	public void testIterator() {
 		Segment s = new Segment(new Context('~', '*', ':'));
-		s.addElements("ISA", "ISA01", "ISA02", "ISA04");
+		s.addElements("ISA", "ISA01", "ISA02", "ISA03");
 		assertNotNull(s.iterator());
 	}
 
+	@Test
+	public void testRemoveElement() {
+		Segment s = new Segment(new Context('~', '*', ':'));
+		s.addElements("ISA", "ISA01", "ISA02", "ISA03");
+		s.removeElement(2);
+		assertEquals("ISA*ISA01*ISA03", s.toString());
+	}
+
+	@Test
+	public void testRemoveElementTwo() {
+		Segment s = new Segment(new Context('~', '*', ':'));
+		s.addElements("ISA", "ISA01", "ISA02", "ISA03");
+		s.removeElement(3);
+		assertEquals("ISA*ISA01*ISA02", s.toString());
+	}
+	
 	@Test
 	public void testSetContext() {
 		Segment s = new Segment(new Context('~', '*', ':'));
@@ -101,9 +116,22 @@ public class SegmentTest {
 		Segment s = new Segment(new Context('~', '*', ':'));
 		s.addElements("ISA", "ISA01", "ISA02", "ISA03", "ISA04");
 		s.setCompositeElement(3, "ISA03_1", "ISA03_2", "ISA03_3");
-		assertEquals("ISA*ISA01*ISA02*ISA03_1:ISA03_2:ISA03_3*ISA04", s
-				.toString());
+		assertEquals("ISA*ISA01*ISA02*ISA03_1:ISA03_2:ISA03_3*ISA04", s.toString());
 
+	}
+
+	@Test
+	public void testToStringRemoveTrailingEmptyElements() {
+		Segment s = new Segment(new Context('~', '*', ':'));
+		s.addElements("ISA", "ISA01", "ISA02", "ISA03", "ISA04", "", "", "");
+		assertEquals("ISA*ISA01*ISA02*ISA03*ISA04", s.toString(true));
+	}
+
+	@Test
+	public void testToStringRemoveTrailingNullElements() {
+		Segment s = new Segment(new Context('~', '*', ':'));
+		s.addElements("ISA", "ISA01", "ISA02", "ISA03", "ISA04", null, null, null);
+		assertEquals("ISA*ISA01*ISA02*ISA03*ISA04", s.toString(true));
 	}
 
 	@Test

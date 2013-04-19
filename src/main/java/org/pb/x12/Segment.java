@@ -27,6 +27,8 @@ import java.util.List;
  */
 public class Segment implements Iterable<String> {
 	private static final long serialVersionUID = 1L;
+	private static final String EMPTY_STRING = "";
+	
 	private Context context;
 	private List<String> elements = new ArrayList<String>();
 
@@ -161,6 +163,29 @@ public class Segment implements Iterable<String> {
 	public Iterator<String> iterator() {
 		return elements.iterator();
 	}
+
+	/**
+	 * Removes the element at the specified position in this list.
+	 * 
+	 * @param index
+	 * @return
+	 */
+	public String removeElement(int index) {
+		return elements.remove(index);
+	}
+
+	/**
+	 * Removes empty and null elements at the end of segment 
+	 */
+	private void removeTrailingEmptyElements() {
+		for (int i = elements.size() - 1; i >= 0; i--) {
+			if (elements.get(i) == null || elements.get(i).length() == 0) {
+				elements.remove(i);
+			} else {
+				break;
+			}
+		}		
+	}
 	
 	/**
 	 * Sets the context of the segment
@@ -219,11 +244,23 @@ public class Segment implements Iterable<String> {
 			dump.append(context.getElementSeparator());
 		}
 		if (dump.length() == 0) {
-			return "";
+			return EMPTY_STRING;
 		}
 		return dump.substring(0, dump.length() - 1);
 	}
 
+	/**
+	 * Returns the X12 representation of the segment.
+	 * 
+	 * @param bRemoveTrailingEmptyElements
+	 * @return <code>String</code>
+	 */
+	public String toString(boolean bRemoveTrailingEmptyElements) {
+		if (bRemoveTrailingEmptyElements)
+			removeTrailingEmptyElements();
+		return this.toString();
+	}
+	
 	/**
 	 * Returns the XML representation of the segment.
 	 * 
@@ -239,6 +276,18 @@ public class Segment implements Iterable<String> {
 		}
 		dump.append("</" + this.elements.get(0) + ">");
 		return dump.toString();
+	}
+
+	/**
+	 * Returns the XML representation of the segment.
+	 * 
+	 * @param bRemoveTrailingEmptyElements
+	 * @return <code>String</code>
+	 */
+	public String toXML(boolean bRemoveTrailingEmptyElements) {
+		if (bRemoveTrailingEmptyElements)
+			removeTrailingEmptyElements();
+		return this.toXML();
 	}
 
 }

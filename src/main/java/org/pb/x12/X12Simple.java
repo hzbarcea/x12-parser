@@ -261,14 +261,24 @@ public class X12Simple implements EDI, Iterable<Segment> {
 	 * used to convert the X12 object into a X12 transaction.
 	 */
 	public String toString() {
-		StringBuffer dump = new StringBuffer();
+		return toString(false);
+	}
+
+	/**
+	 * Returns the X12 representation of the segment.
+	 * 
+	 * @param bRemoveTrailingEmptyElements
+	 * @return
+	 */
+	public String toString(boolean bRemoveTrailingEmptyElements) {
+		StringBuilder dump = new StringBuilder();
 		for (Segment s : this.segments) {
-			dump.append(s.toString());
+			dump.append(s.toString(bRemoveTrailingEmptyElements));
 			dump.append(context.getSegmentSeparator());
 		}
 		return dump.toString();
 	}
-
+	
 	/**
 	 * Returns the X12 transaction in XML format. This method translates the X12
 	 * object into XML format.
@@ -276,12 +286,23 @@ public class X12Simple implements EDI, Iterable<Segment> {
 	 * @return XML string
 	 */
 	public String toXML() {
+		return this.toXML(false);
+	}
+	
+	/**
+	 * Returns the X12 transaction in XML format. This method translates the X12
+	 * object into XML format.
+	 * 
+	 * @param bRemoveTrailingEmptyElements
+	 * @return XML
+	 */
+	public String toXML(boolean bRemoveTrailingEmptyElements) {
 		StringBuffer dump = new StringBuffer();
 		dump.append("<X12>");
 		for (Segment s : this.segments) {
-			dump.append(s.toXML());
+			dump.append(s.toXML(bRemoveTrailingEmptyElements));
 		}
 		dump.append("</X12>");
 		return dump.toString();
-	}
+	}	
 }

@@ -167,9 +167,32 @@ public class X12SimpleTest {
 		x12.addSegment("ISA*ISA01*ISA02*ISA03");
 		x12.addSegment("GS*GS01*GS02*GS03");
 		assertEquals("ISA*ISA01*ISA02*ISA03~GS*GS01*GS02*GS03~", x12.toString());
-
+	}
+	
+	@Test
+	public void testToStringRemoveTrailingEmptyElements() {
+		X12Simple x12 = new X12Simple(new Context('~', '*', ':'));
+		x12.addSegment("ISA*ISA01*ISA02*ISA03***");
+		x12.addSegment("GS*GS01*GS02*GS03***");
+		assertEquals("ISA*ISA01*ISA02*ISA03~GS*GS01*GS02*GS03~", x12.toString(true));
 	}
 
+	@Test
+	public void testToStringRemoveTrailingEmptyElementsTwo() {
+		X12Simple x12 = new X12Simple(new Context('~', '*', ':'));
+		x12.addSegment("ISA*ISA01*ISA02*ISA03***ISA06");
+		x12.addSegment("GS*GS01*GS02*GS03***");
+		assertEquals("ISA*ISA01*ISA02*ISA03***ISA06~GS*GS01*GS02*GS03~", x12.toString(true));
+	}
+
+	@Test
+	public void testToStringRemoveTrailingEmptyElementsThree() {
+		X12Simple x12 = new X12Simple(new Context('~', '*', ':'));
+		x12.addSegment("ISA*ISA01*ISA02*ISA03***ISA06");
+		x12.addSegment("GS*GS01*GS02*GS03**GS05**");
+		assertEquals("ISA*ISA01*ISA02*ISA03***ISA06~GS*GS01*GS02*GS03**GS05~", x12.toString(true));
+	}
+	
 	@Test
 	public void testToXML() {
 		X12Simple x12 = new X12Simple(new Context('~', '*', ':'));

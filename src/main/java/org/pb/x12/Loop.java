@@ -461,13 +461,24 @@ public class Loop implements Iterable<Segment> {
 	 * @return String
 	 */
 	public String toString() {
-		StringBuffer dump = new StringBuffer();
+		return this.toString(false);
+	}
+ 
+	/**
+	 * Returns the Loop in X12 <code>String</code> format. This method is used
+	 * to convert the X12 object into a X12 transaction.
+	 * 
+	 * @param bRemoveTrailingEmptyElements
+	 * @return
+	 */
+	public String toString(boolean bRemoveTrailingEmptyElements) {
+		StringBuilder dump = new StringBuilder();
 		for (Segment s : this.segments) {
-			dump.append(s.toString());
+			dump.append(s.toString(bRemoveTrailingEmptyElements));
 			dump.append(context.getSegmentSeparator());
 		}
 		for (Loop l : this.childList()) {
-			dump.append(l.toString());
+			dump.append(l.toString(bRemoveTrailingEmptyElements));
 		}
 		return dump.toString();
 	}
@@ -479,13 +490,24 @@ public class Loop implements Iterable<Segment> {
 	 * @return XML String
 	 */
 	public String toXML() {
+		return this.toXML(false);
+	}
+
+	/**
+	 * Returns the Loop in XML <code>String</code> format. This method is used
+	 * to convert the X12 object into a XML string.
+	 * 
+	 * @param bRemoveTrailingEmptyElements
+	 * @return
+	 */
+	public String toXML(boolean bRemoveTrailingEmptyElements) {
 		StringBuffer dump = new StringBuffer();
 		dump.append("<LOOP NAME=\"").append(this.name).append("\">");
 		for (Segment s : this.segments) {
-			dump.append(s.toXML());
+			dump.append(s.toXML(bRemoveTrailingEmptyElements));
 		}
 		for (Loop l : this.childList()) {
-			dump.append(l.toXML());
+			dump.append(l.toXML(bRemoveTrailingEmptyElements));
 		}
 		dump.append("</LOOP>");
 		return dump.toString();
