@@ -188,6 +188,16 @@ public class X12Simple implements EDI, Iterable<Segment> {
 	public Iterator<Segment> iterator() {
 		return segments.iterator();
 	}
+
+	/**
+	 * Removes the segment at the specified position in this list.
+	 * 
+	 * @param index
+	 * @return
+	 */
+	public Segment removeSegment(int index) {
+		return segments.remove(index);
+	}
 	
 	/**
 	 * Sets the context of the current transaction.

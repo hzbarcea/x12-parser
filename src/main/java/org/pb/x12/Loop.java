@@ -323,7 +323,27 @@ public class Loop implements Iterable<Segment> {
 	public Iterator<Segment> iterator() {
 		return segments.iterator();
 	}
-	
+
+	/**
+	 * Removes the loop at the specified position in this list.
+	 * 
+	 * @param index
+	 * @return
+	 */
+	public Loop removeLoop(int index) {
+		return loops.remove(index);
+	}
+		
+	/**
+	 * Removes the segment at the specified position in this list.
+	 * 
+	 * @param index
+	 * @return
+	 */
+	public Segment removeSegment(int index) {
+		return segments.remove(index);
+	}
+		
 	/**
 	 * Returns <code>List<Loop></code> of child Loops
 	 * 

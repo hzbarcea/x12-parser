@@ -6,6 +6,9 @@ CHANGES
 V1.0-beta
 Handle special characters that can be used as segment separators.
 Add removeElement(int index) added to Segment class.
+Add removeSegment(int index) added to X12Simple class.
+Add removeSegment(int index) added to Loop class.
+Add removeLoop(int index) added to Loop class.
 Add toString(boolean bRemoveTrailingEmptyElements) added to Segment class.
 Add toString(boolean bRemoveTrailingEmptyElements) added to X12Simple class.
 Add toString(boolean bRemoveTrailingEmptyElements) added to Loop class.

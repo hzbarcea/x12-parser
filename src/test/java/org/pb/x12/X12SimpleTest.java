@@ -107,6 +107,25 @@ public class X12SimpleTest {
 	}
 
 	@Test
+	public void testRemoveSegment() {
+		X12Simple x12 = new X12Simple(new Context('~', '*', ':'));
+		x12.addSegment("ISA*ISA01*ISA02*ISA03");
+		x12.addSegment("ST1*ST101*ST102*ST103");
+		x12.addSegment("ST2*ST201*ST202*ST203");
+		x12.addSegment("ST2*ST301*ST302*ST303");
+		
+		Segment s1 = x12.removeSegment(2); // test
+		assertEquals("ST2*ST201*ST202*ST203", s1.toString());
+		assertEquals(3, x12.size());
+		assertEquals("ISA*ISA01*ISA02*ISA03~ST1*ST101*ST102*ST103~ST2*ST301*ST302*ST303~", x12.toString());
+		
+		Segment s2 = x12.removeSegment(0); // test
+		assertEquals("ISA*ISA01*ISA02*ISA03", s2.toString());
+		assertEquals(2, x12.size());
+		assertEquals("ST1*ST101*ST102*ST103~ST2*ST301*ST302*ST303~", x12.toString());
+	}
+	
+	@Test
 	public void testSetContext() {
 		X12Simple x12 = new X12Simple(new Context('~', '*', ':'));
 		x12.setContext(new Context('s', 'e', 'c'));

@@ -183,6 +183,30 @@ public class LoopTest {
 	}
 
 	@Test
+	public void testRemoveLoop() {
+		Loop loop = new Loop(new Context('~', '*', ':'), "X12");
+		loop.addChild("ISA");
+		loop.addChild("GS");
+		loop.addChild("ST");
+		loop.addChild("1000A");
+		loop.addChild("1000B");
+		loop.addChild("2000");
+		loop.addChild("2100");
+		loop.addChild("2110");
+		loop.addChild("SE");
+		loop.addChild("GE");
+		loop.addChild("IEA");
+
+		Loop l1 = loop.removeLoop(3);
+		assertEquals("1000A", l1.getName());
+		assertEquals(10, l1.size());
+		
+		Loop l2 = loop.removeLoop(0);
+		assertEquals("ISA", l2.getName());
+		assertEquals(9, l2.size());		
+	}
+	
+	@Test
 	public void testChildList() {
 		Loop loop = new Loop(new Context('~', '*', ':'), "X12");
 		loop.addChild("ISA");
