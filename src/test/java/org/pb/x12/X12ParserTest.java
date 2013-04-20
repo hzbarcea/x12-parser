@@ -1,6 +1,6 @@
 package org.pb.x12;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import java.io.File;
 import java.io.IOException;
@@ -8,7 +8,6 @@ import java.io.InputStream;
 import java.net.URL;
 
 import org.junit.Test;
-import org.pb.x12.example.exampleParseX12FileOne;
 
 public class X12ParserTest {
 
@@ -113,8 +112,7 @@ public class X12ParserTest {
 	@Test
 	public void testParseFile() throws FormatException, IOException {
 		Parser parser = new X12Parser(loadCf());
-		URL url = exampleParseX12FileOne.class
-				.getResource("/org/pb/x12/example/example835One.txt");
+		URL url = this.getClass().getResource("/example835One.txt");
 		File f1 = new File(url.getFile());
 
 		X12 x12 = (X12) parser.parse(f1);
@@ -127,8 +125,7 @@ public class X12ParserTest {
 	@Test
 	public void testParseInputStream() throws FormatException, IOException {
 		Parser parser = new X12Parser(loadCf());
-		InputStream is = exampleParseX12FileOne.class
-				.getResourceAsStream("/org/pb/x12/example/example835One.txt");
+		InputStream is = this.getClass().getResourceAsStream("/example835One.txt");
 
 		X12 x12 = (X12) parser.parse(is);
 

@@ -8,15 +8,13 @@ import java.io.InputStream;
 import java.net.URL;
 
 import org.junit.Test;
-import org.pb.x12.example.exampleParseX12FileOne;
 
 public class X12SimpleParserTest {
 
 	@Test
 	public void testParseFile() throws FormatException, IOException {
 		Parser parser = new X12SimpleParser();
-		URL url = exampleParseX12FileOne.class.getResource(
-				"/org/pb/x12/example/example835One.txt");
+		URL url = this.getClass().getResource("/example835One.txt");
 		File f1 = new File(url.getFile());
 
 		X12Simple x12 = (X12Simple) parser.parse(f1);
@@ -55,8 +53,7 @@ public class X12SimpleParserTest {
 	@Test
 	public void testParseInputStream() throws FormatException, IOException {
 		Parser parser = new X12SimpleParser();
-		InputStream is = exampleParseX12FileOne.class
-				.getResourceAsStream("/org/pb/x12/example/example835One.txt");
+		InputStream is = this.getClass().getResourceAsStream("/example835One.txt");
 
 		X12Simple x12 = (X12Simple) parser.parse(is);
 

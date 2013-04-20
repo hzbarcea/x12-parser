@@ -199,11 +199,9 @@ public class LoopTest {
 
 		Loop l1 = loop.removeLoop(3);
 		assertEquals("1000A", l1.getName());
-		assertEquals(10, l1.size());
 		
 		Loop l2 = loop.removeLoop(0);
 		assertEquals("ISA", l2.getName());
-		assertEquals(9, l2.size());		
 	}
 	
 	@Test

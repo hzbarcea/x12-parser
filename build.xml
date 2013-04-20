@@ -10,17 +10,28 @@
 	<property name="test.dir" location="src/test/java" />
 	<property name="build.dir" location="target/classes" />
 	<property name="dist.dir" location="target/lib" />
+	<property name="report.dir" location="target/test-report" />
 
+	<path id="junit.class.path">
+		<pathelement location="lib/junit.jar" />
+		<pathelement location="${build.dir}" />
+	</path>
+	
 	<target name="init">
 	</target>
 
-	<target name="compile" depends="init" description="compile the source">
+	<target name="compile" depends="clean, init" description="compile the source">
 		<mkdir dir="${build.dir}" />
 		<javac srcdir="${lib.dir}" destdir="${build.dir}" includeantruntime="true"/>
-		<javac srcdir="${test.dir}" destdir="${build.dir}" includeantruntime="true" classpath="lib/junit.jar"/>
 	</target>
 
-	<target name="dist" depends="compile" description="generate the distribution">
+	<target name="compile-test" depends="clean, init, compile" description="compile the tests">
+		<javac srcdir="${test.dir}" destdir="${build.dir}" includeantruntime="true">
+			<classpath refid="junit.class.path" />			
+		</javac>
+	</target>
+	
+	<target name="dist" depends="clean, init, compile" description="generate the distribution">
 		<mkdir dir="${dist.dir}" />
 		<copy todir="${build.dir}">
 			<fileset file="LICENSE-2.0.txt"/>
@@ -37,17 +48,19 @@
 	<target name="clean" description="clean up">
 		<delete dir="${build.dir}" />
 		<delete dir="${dist.dir}" />
+		<delete dir="${report.dir}" />
 	</target>
 	
-	<target name="test" depends="compile">
-		<junit fork="no">
-			<classpath>
-				<pathelement path="${build.dir}"/>
-				<pathelement path="${java.class.path}"/>
-				<pathelement location="lib/junit.jar"/>
-			</classpath>
+	<target name="test" depends="compile-test">
+		<mkdir dir="${report.dir}" />
+		<copy todir="${build.dir}">
+			<fileset file="src\examples\java\org\pb\x12\example\example835One.txt"/>
+			<fileset file="src\examples\java\org\pb\x12\example\example835SpecialCharsOne.txt"/>			
+		</copy>				
+		<junit printsummary="on" fork="true" haltonfailure="yes">
+			<classpath refid="junit.class.path" />
 			<formatter type="plain"/>
-			<batchtest>
+			<batchtest todir="${report.dir}">
 				<fileset dir="${test.dir}">
 					<include name="**/*Test*" />
 				</fileset>
