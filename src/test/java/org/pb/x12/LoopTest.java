@@ -203,6 +203,19 @@ public class LoopTest {
 		Loop l2 = loop.removeLoop(0);
 		assertEquals("ISA", l2.getName());
 	}
+
+	@Test
+	public void testRemoveSegment() {
+		Loop loop = new Loop(new Context('~', '*', ':'), "ST");
+		loop.addSegment("BPR*DATA*NOT*VALID*RANDOM*TEXT");
+		loop.addSegment("TRN*1*0000000000*1999999999");
+		loop.addSegment("DTM*111*20090915");
+		loop.addSegment(0, "ST*835*000000001");
+
+		Segment s = loop.removeSegment(2);
+		assertEquals("TRN*1*0000000000*1999999999", s.toString());
+		assertEquals(3, loop.size());
+	}
 	
 	@Test
 	public void testChildList() {
