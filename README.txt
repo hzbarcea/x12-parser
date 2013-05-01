@@ -15,7 +15,8 @@ Add toString(boolean bRemoveTrailingEmptyElements) added to Loop class.
 Add toXML(boolean bRemoveTrailingEmptyElements) added to Segment class.
 Add toXML(boolean bRemoveTrailingEmptyElements) added to X12Simple class.
 Add toXML(boolean bRemoveTrailingEmptyElements) added to Loop class.
-Replace StringBuffer with StringBuilder
+Replace StringBuffer with StringBuilder.
+Add pom.xml for those who want to build with maven.
 
 V0.9
 Fixed problem with X12Parser. Loop detection logic was not working correctly.
