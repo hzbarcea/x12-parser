@@ -212,7 +212,7 @@ public class Cf {
 	}
 
 	public String toString() {
-		StringBuffer dump = new StringBuffer();
+		StringBuilder dump = new StringBuilder();
 		for(int i=0; i < depth; i++){
 			dump.append("|  ");
 		}

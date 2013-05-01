@@ -124,7 +124,7 @@ public class X12Parser implements Parser {
 	 */
 	@Override
 	public EDI parse(InputStream source) throws FormatException, IOException {
-		StringBuffer strBuffer = new StringBuffer();
+		StringBuilder strBuffer = new StringBuilder();
 		char[] cbuf = new char[1024];
 		int length = -1;
 

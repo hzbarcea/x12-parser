@@ -307,7 +307,7 @@ public class X12Simple implements EDI, Iterable<Segment> {
 	 * @return XML
 	 */
 	public String toXML(boolean bRemoveTrailingEmptyElements) {
-		StringBuffer dump = new StringBuffer();
+		StringBuilder dump = new StringBuilder();
 		dump.append("<X12>");
 		for (Segment s : this.segments) {
 			dump.append(s.toXML(bRemoveTrailingEmptyElements));

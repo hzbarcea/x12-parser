@@ -91,7 +91,7 @@ public class Segment implements Iterable<String> {
 	 * @return boolean
 	 */
 	public boolean addCompositeElement(String... ces) {
-		StringBuffer dump = new StringBuffer();
+		StringBuilder dump = new StringBuilder();
 		for (String s : ces) {
 			dump.append(s);
 			dump.append(context.getCompositeElementSeparator());
@@ -118,7 +118,7 @@ public class Segment implements Iterable<String> {
 	 *            sub-elements of a composite element
 	 */
 	public void addCompositeElement(int index, String... ces) {
-		StringBuffer dump = new StringBuffer();
+		StringBuilder dump = new StringBuilder();
 		for (String s : ces) {
 			dump.append(s);
 			dump.append(context.getCompositeElementSeparator());
@@ -217,7 +217,7 @@ public class Segment implements Iterable<String> {
 	 *            sub-elements of a composite element
 	 */
 	public void setCompositeElement(int index, String... ces) {
-		StringBuffer dump = new StringBuffer();
+		StringBuilder dump = new StringBuilder();
 		for (String s : ces) {
 			dump.append(s);
 			dump.append(context.getCompositeElementSeparator());
@@ -238,7 +238,7 @@ public class Segment implements Iterable<String> {
 	 * Returns the X12 representation of the segment.
 	 */
 	public String toString() {
-		StringBuffer dump = new StringBuffer();
+		StringBuilder dump = new StringBuilder();
 		for (String s : this.elements) {
 			dump.append(s);
 			dump.append(context.getElementSeparator());
@@ -267,7 +267,7 @@ public class Segment implements Iterable<String> {
 	 * @return <code>String</code>
 	 */
 	public String toXML() {
-		StringBuffer dump = new StringBuffer();
+		StringBuilder dump = new StringBuilder();
 		dump.append("<" + this.elements.get(0) + ">");
 		for (int i = 1; i < this.elements.size(); i++) {
 			dump.append("<" + this.elements.get(0) + String.format("%1$02d", i) + "><![CDATA[");

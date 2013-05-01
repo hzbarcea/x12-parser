@@ -521,7 +521,7 @@ public class Loop implements Iterable<Segment> {
 	 * @return
 	 */
 	public String toXML(boolean bRemoveTrailingEmptyElements) {
-		StringBuffer dump = new StringBuffer();
+		StringBuilder dump = new StringBuilder();
 		dump.append("<LOOP NAME=\"").append(this.name).append("\">");
 		for (Segment s : this.segments) {
 			dump.append(s.toXML(bRemoveTrailingEmptyElements));
