@@ -1,9 +1,9 @@
 X12 Parser 
-Current Version : V1.0-beta
+Current Version : V1.0
 
 CHANGES
 -------------------------------------------------------------------------------
-V1.0-beta
+V1.0
 Handle special characters that can be used as segment separators.
 Add removeElement(int index) added to Segment class.
 Add removeSegment(int index) added to X12Simple class.
