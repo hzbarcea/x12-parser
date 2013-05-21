@@ -7,7 +7,14 @@
 		<connection>scm:svn:https://x12-parser.googlecode.com/svn/trunk</connection>
 		<developerConnection>scm:svn:https://x12-parser.googlecode.com/svn/trunk</developerConnection>
 		<url>http://code.google.com/p/x12-parser/</url>
-	</scm>	
+	</scm>
+	<distributionManagement>
+		<repository>
+			<id>localrepo</id>
+			<name>build server repository</name>
+			<url>file://C:\localrepo</url>
+		</repository>
+	</distributionManagement>	
 	<build>
 		<plugins>
 			<plugin>
