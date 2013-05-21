@@ -3,6 +3,11 @@
 	<groupId>org.pb</groupId>
 	<artifactId>x12</artifactId>
 	<version>SNAPSHOT-0.9</version>
+	<scm>
+		<connection>scm:svn:https://x12-parser.googlecode.com/svn/trunk</connection>
+		<developerConnection>scm:svn:https://x12-parser.googlecode.com/svn/trunk</developerConnection>
+		<url>http://code.google.com/p/x12-parser/</url>
+	</scm>	
 	<build>
 		<plugins>
 			<plugin>
