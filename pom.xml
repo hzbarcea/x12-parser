@@ -1,43 +1,55 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-	<modelVersion>4.0.0</modelVersion>
-	<groupId>org.pb</groupId>
-	<artifactId>x12</artifactId>
-	<version>1.1-SNAPSHOT</version>
-	<scm>
-		<connection>scm:svn:https://x12-parser.googlecode.com/svn/trunk</connection>
-		<developerConnection>scm:svn:https://x12-parser.googlecode.com/svn/trunk</developerConnection>
-		<url>http://code.google.com/p/x12-parser/</url>
-	</scm>
-	<distributionManagement>
-		<repository>
-			<id>localrepo</id>
-			<name>build server repository</name>
-			<url>file://C:\localrepo</url>
-		</repository>
-	</distributionManagement>	
-	<build>
-		<plugins>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-resources-plugin</artifactId>
-				<version>2.3</version>
-			</plugin>
-		</plugins>
-		<resources>
-			<resource>
-			<directory>.</directory>
-				<includes>
-					<include>LICENSE-2.0.txt</include>
-				</includes>
-				<targetPath>META-INF</targetPath>
-			</resource>
-		</resources>	
-	</build>
-	<dependencies>
-		<dependency>
-		  <groupId>junit</groupId>
-		  <artifactId>junit</artifactId>
-		  <version>4.8.2</version>
-		</dependency>
-	</dependencies>
-</project>	
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>org.apifocal</groupId>
+        <artifactId>apifocal-oss</artifactId>
+        <version>1</version>
+    </parent>
+
+    <groupId>org.apifocal.health</groupId>
+    <artifactId>x12</artifactId>
+    <version>1.1-SNAPSHOT</version>
+    <scm>
+        <connection>scm:git:git@github.com:apifocal/x12-parser.git</connection>
+        <developerConnection>scm:git:git@github.com:apifocal/x12-parser.git</developerConnection>
+        <tag>HEAD</tag>
+        <url>https://github.com/apifocal/x12-parser</url>
+        <!-- connection>scm:svn:https://x12-parser.googlecode.com/svn/trunk</connection>
+        <developerConnection>scm:svn:https://x12-parser.googlecode.com/svn/trunk</developerConnection>
+        <url>http://code.google.com/p/x12-parser/</url -->
+    </scm>
+
+    <properties>
+        <junit.version>4.12</junit.version>
+    </properties>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-resources-plugin</artifactId>
+            </plugin>
+        </plugins>
+        <resources>
+            <resource>
+            <directory>.</directory>
+                <includes>
+                    <include>LICENSE-2.0.txt</include>
+                </includes>
+                <targetPath>META-INF</targetPath>
+            </resource>
+        </resources>
+    </build>
+    <dependencies>
+        <dependency>
+          <groupId>junit</groupId>
+          <artifactId>junit</artifactId>
+          <version>${junit.version}</version>
+        </dependency>
+    </dependencies>
+
+</project>
